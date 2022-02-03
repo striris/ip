@@ -1,8 +1,11 @@
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Scanner;
 
 public class Duke {
 
     public static void main(String[] args) {
+        String[] tasks = new String[100];
+        int count = 0;
         Scanner sc = new Scanner(System.in);
         String greeting = "----------------------\n"
                 + "Hello! I'm Duke\n"
@@ -11,16 +14,24 @@ public class Duke {
         String bye = "Bye. Hope to see you again soon!\n";
         System.out.println(greeting);
 
-        String input = sc.next();
         while(true){
+            String input = sc.nextLine();
+            System.out.println("----------------------");
             if(input.equals("bye")){
                 System.out.println(bye);
                 break;
             }
-            else{
-                System.out.println(input);
-                input = sc.next();
+            else if(input.equals("list")){
+                for(int i = 0; i<count ; i++){
+                    System.out.println((i+1) + ". " + tasks[i]);
+                }
             }
+            else{
+                System.out.println("added: " + input);
+                tasks[count] = input;
+                count++;
+            }
+            System.out.println("----------------------");
         }
     }
 }
