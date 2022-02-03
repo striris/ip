@@ -1,4 +1,3 @@
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Scanner;
 
 public class Duke {
