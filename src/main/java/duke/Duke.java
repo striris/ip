@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -9,7 +11,7 @@ public class Duke {
         int count = 0;
         Scanner sc = new Scanner(System.in);
         String greeting = "----------------------------------------------\n"
-                + "Hello! I'm Duke\n"
+                + "Hello! I'm Duke.Duke\n"
                 + "What can I do for you?\n"
                 + "----------------------------------------------\n";
         String bye = "Bye. Hope to see you again soon!\n";
