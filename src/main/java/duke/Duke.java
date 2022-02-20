@@ -1,85 +1,114 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-        String by = new String();
-        String at = new String();
-        int count = 0;
-        Scanner sc = new Scanner(System.in);
+    private static ArrayList<Task> tasks = new ArrayList<>();
+
+    private static void greeting() {
         String greeting = "----------------------------------------------\n"
                 + "Hello! I'm Duke.Duke\n"
                 + "What can I do for you?\n"
                 + "----------------------------------------------\n";
         String bye = "Bye. Hope to see you again soon!\n";
         System.out.println(greeting);
+    }
 
+    private static void farewell() {
+        String bye = "Bye. Hope to see you again soon!\n";
+        System.out.println(bye);
+    }
+
+    private static void listTask() {
+        System.out.println("Here are the tasks in your list:");
+        for(int i = 0; i<tasks.size() ; i++)
+            System.out.println(i+1 + "." + tasks.get(i));
+    }
+
+    private static void markTask(int taskIndex) {
+        System.out.println("Nice! I've marked this task as done:");
+        tasks.get(taskIndex-1).markAsDone();
+        System.out.println(tasks.get(taskIndex-1));
+    }
+
+    private static void unmarkTask(int taskIndex) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        tasks.get(taskIndex-1).markAsNotDone();
+        System.out.println(tasks.get(taskIndex-1));
+    }
+
+    private static void addTask(Task t) {
+        tasks.add(t);
+        System.out.println("Got it! I've added this task: ");
+        System.out.println(t);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void deleteTask(int taskIndex) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(tasks.get(taskIndex -1));
+        tasks.remove(taskIndex -1);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    private static void startBot() {
+        Scanner sc = new Scanner(System.in);
+        String by = new String();
+        String at = new String();
         while(true){
             String userInput = sc.nextLine();
+            String choice = userInput.split(" ")[0];
+
             System.out.println("----------------------------------------------");
-            if(userInput.equals("bye")){
-                System.out.println(bye);
+            if(userInput.equals("bye")) {
+                farewell();
                 break;
             }
-            else if(userInput.equals("list")){//show list
-                System.out.println("Here are the tasks in your list:");
-                for(int i = 0; i<count ; i++)
-                    System.out.println(i+1 + "." + tasks[i]);
+            else if(userInput.equals("list")) {
+                listTask();
             }
-            else if(userInput.split(" ")[0].equals("mark")){//mark task
-                //get the integer k in the string
-                System.out.println("Nice! I've marked this task as done:");
-                int k = Integer.parseInt(userInput.split(" ")[1]);
-                tasks[k-1].markAsDone();
-                System.out.println(tasks[k-1]);
+            else if(choice.equals("mark")) {
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                markTask(taskIndex);
             }
-            else if(userInput.split(" ")[0].equals("unmark")){//unmark task
-                //get the integer k in the string
-                System.out.println("OK, I've marked this task as not done yet:");
-                int k = Integer.parseInt(userInput.split(" ")[1]);
-                tasks[k-1].markAsNotDone();
-                System.out.println(tasks[k-1]);
+            else if(choice.equals("unmark")) {
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                unmarkTask(taskIndex);
             }
-            else if(userInput.startsWith("todo")){
+            else if(choice.equals("todo")) {
                 String toDoDescription = userInput.split("todo")[1].trim();
                 Task t = new ToDo(toDoDescription);
-                tasks[count] = t;
-                count++;
-                System.out.println("Got it! I've added this task: ");
-                System.out.println(t);
-                System.out.println("Now you have " + count + " tasks in the list.");
+                addTask(t);
             }
-            else if(userInput.split(" ")[0].equals("deadline")){//add deadline
-                //split description and time
+            else if(choice.equals("deadline")) {
                 String[] input = userInput.split("/by");
                 by = input[1].trim();
                 String deadlineDescription = input[0].split("deadline")[1].trim();
                 Task d = new Deadline(deadlineDescription, by);
-                tasks[count] = d;
-                count++;
-                System.out.println("Got it! I've added this task: ");
-                System.out.println(d);
-                System.out.println("Now you have " + count + " tasks in the list.");
+                addTask(d);
             }
-            else if(userInput.split(" ")[0].equals("event")){//add deadline
-                //split description and time
+            else if(choice.equals("event")) {
                 String[] input = userInput.split("/at");
                 at = input[1].trim();
                 String eventDescription = input[0].split("event")[1].trim();
                 Task e = new Event(eventDescription, at);
-                tasks[count] = e;
-                count++;
-                System.out.println("Got it! I've added this task: ");
-                System.out.println(e);
-                System.out.println("Now you have " + count + " tasks in the list.");
+                addTask(e);
+            }
+            else if(choice.equals("delete")) {
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                deleteTask(taskIndex);
             }
             else{
                 System.out.println("I don't understand D:");
             }
             System.out.println("----------------------------------------------");
         }
+    }
+
+    public static void main(String[] args) {
+        greeting();
+        startBot();
     }
 }
