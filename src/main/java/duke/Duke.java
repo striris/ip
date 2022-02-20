@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -64,6 +65,7 @@ public class Duke {
             System.out.println("----------------------------------------------");
             if(userInput.equals("bye")) {
                 farewell();
+                saveTasks();
                 break;
             }
             else if(userInput.equals("list")) {
@@ -110,5 +112,21 @@ public class Duke {
     public static void main(String[] args) {
         greeting();
         startBot();
+    }
+
+    public static void saveTasks() {
+        String toFile = "";
+        try {
+            FileWriter writer = new FileWriter("src/main/java/duke/tasks.txt");
+            for (int i = 0; i < tasks.size(); i++) {
+                toFile += tasks.get(i).getDescription() + "\n";
+            }
+            writer.write(toFile);
+            writer.close();
+            System.out.println("Task saved");
+            System.out.println("______________________________________");
+        } catch (Exception e) {
+            System.out.println("Error occurred");
+        }
     }
 }
