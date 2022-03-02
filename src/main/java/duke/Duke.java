@@ -1,6 +1,12 @@
 package duke;
 
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,75 +64,65 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String by = new String();
         String at = new String();
-        while(true){
-            String userInput = sc.nextLine();
-            String choice = userInput.split(" ")[0];
+        try {
+            FileManager.loadFile(tasks);
+            while(true){
+                String userInput = sc.nextLine();
+                String choice = userInput.split(" ")[0];
 
-            System.out.println("----------------------------------------------");
-            if(userInput.equals("bye")) {
-                farewell();
-                saveTasks();
-                break;
+                System.out.println("----------------------------------------------");
+                if(userInput.equals("bye")) {
+                    farewell();
+                    FileManager.saveFile(tasks);
+                    break;
+                }
+                else if(userInput.equals("list")) {
+                    listTask();
+                }
+                else if(choice.equals("mark")) {
+                    int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    markTask(taskIndex);
+                }
+                else if(choice.equals("unmark")) {
+                    int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    unmarkTask(taskIndex);
+                }
+                else if(choice.equals("todo")) {
+                    String toDoDescription = userInput.split("todo")[1].trim();
+                    Task t = new ToDo(toDoDescription, false);
+                    addTask(t);
+                }
+                else if(choice.equals("deadline")) {
+                    String[] input = userInput.split("/by");
+                    by = input[1].trim();
+                    String deadlineDescription = input[0].split("deadline")[1].trim();
+                    Task d = new Deadline(deadlineDescription, false, by);
+                    addTask(d);
+                }
+                else if(choice.equals("event")) {
+                    String[] input = userInput.split("/at");
+                    at = input[1].trim();
+                    String eventDescription = input[0].split("event")[1].trim();
+                    Task e = new Event(eventDescription, false, at);
+                    addTask(e);
+                }
+                else if(choice.equals("delete")) {
+                    int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                    deleteTask(taskIndex);
+                }
+                else{
+                    System.out.println("I don't understand D:");
+                }
+                System.out.println("----------------------------------------------");
             }
-            else if(userInput.equals("list")) {
-                listTask();
-            }
-            else if(choice.equals("mark")) {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                markTask(taskIndex);
-            }
-            else if(choice.equals("unmark")) {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                unmarkTask(taskIndex);
-            }
-            else if(choice.equals("todo")) {
-                String toDoDescription = userInput.split("todo")[1].trim();
-                Task t = new ToDo(toDoDescription);
-                addTask(t);
-            }
-            else if(choice.equals("deadline")) {
-                String[] input = userInput.split("/by");
-                by = input[1].trim();
-                String deadlineDescription = input[0].split("deadline")[1].trim();
-                Task d = new Deadline(deadlineDescription, by);
-                addTask(d);
-            }
-            else if(choice.equals("event")) {
-                String[] input = userInput.split("/at");
-                at = input[1].trim();
-                String eventDescription = input[0].split("event")[1].trim();
-                Task e = new Event(eventDescription, at);
-                addTask(e);
-            }
-            else if(choice.equals("delete")) {
-                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                deleteTask(taskIndex);
-            }
-            else{
-                System.out.println("I don't understand D:");
-            }
-            System.out.println("----------------------------------------------");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     public static void main(String[] args) {
         greeting();
         startBot();
-    }
-
-    public static void saveTasks() {
-        String toFile = "";
-        try {
-            FileWriter writer = new FileWriter("src/main/java/duke/tasks.txt");
-            for (int i = 0; i < tasks.size(); i++) {
-                toFile += tasks.get(i).getDescription() + "\n";
-            }
-            writer.write(toFile);
-            writer.close();
-            System.out.println("Task saved");
-            System.out.println("______________________________________");
-        } catch (Exception e) {
-            System.out.println("Error occurred");
-        }
     }
 }

@@ -1,17 +1,19 @@
-package duke;
+package duke.tasks;
 
 public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
         return description;
     }
+
+    public boolean getStatus() { return isDone; }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -29,4 +31,11 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    public String saveTasks() {
+        int isMarked = 0;
+        if(this.isDone) {
+            isMarked = 1;
+        }
+        return "| " + isMarked + " | " + this.description ;
+    }
 }

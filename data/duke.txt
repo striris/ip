@@ -1,0 +1,4 @@
+T | 0 | what
+D | 1 | ddl1 | June
+E | 0 | EVENT1 | noon
+D | 1 | ddl2 | 6.7
