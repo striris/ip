@@ -5,7 +5,6 @@ import duke.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TaskList {
     private static ArrayList<Task> tasks;
@@ -26,12 +25,11 @@ public class TaskList {
     }
 
     public void processTasks() throws IOException {
-        Scanner sc = new Scanner(System.in);
         String by = new String();
         String at = new String();
 
             while(true){
-                String userInput = sc.nextLine();
+                String userInput = Ui.getInput();
                 String choice = userInput.split(" ")[0];
 
                 System.out.println("----------------------------------------------");
@@ -73,6 +71,10 @@ public class TaskList {
                     int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
                     deleteTask(taskIndex);
                 }
+                else if(choice.equals("find")) {
+                    String keyWord = userInput.split(" ")[1];
+                    findTask(keyWord);
+                }
                 else{
                     System.out.println("I don't understand D:");
                 }
@@ -111,4 +113,20 @@ public class TaskList {
         tasks.remove(taskIndex -1);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
+
+    private static void findTask(String keyWord) {
+        System.out.println("Here are the matching tasks in your list:");
+        int i = 1;
+        for(Task t: tasks) {
+            if(t.description.contains(keyWord)){
+                System.out.println(i +"."+ t);
+                i++;
+            }
+        }
+        if(i == 1) {
+            System.out.println("The keyword doesn't exist in task descriptions, try other keyword please :)");
+        }
+
+    }
+
 }
