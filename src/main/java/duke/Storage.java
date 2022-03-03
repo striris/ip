@@ -1,9 +1,6 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import duke.tasks.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,18 +8,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileManager {
-
+public class Storage {
+    protected static String filePath;
     protected static final char TODO = 'T';
     protected static final char EVENT = 'E';
     protected static final char DEADLINE = 'D';
 
-    public static void loadFile(ArrayList<Task> listArray) throws IOException {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public static ArrayList<Task> loadFile() throws IOException {
         try {
-            File f = new File("data/duke.txt");
+            File f = new File(filePath);
             f.getParentFile().mkdirs();
             f.createNewFile();
             Scanner s = new Scanner(f);
+            ArrayList<Task> listArray = new ArrayList<>();
             while (s.hasNext()) {
                 boolean isDone = true;
                 String message = s.nextLine();
@@ -50,9 +52,11 @@ public class FileManager {
                 }
             }
             s.close();
+            return listArray;
         } catch (IOException e) {
             System.out.println("IO exception");
         }
+        return null;
     }
 
     public static void saveFile(ArrayList<Task> listArray) throws IOException {
