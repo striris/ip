@@ -28,4 +28,8 @@ public class Duke {
     private static void startBot() throws IOException {
         taskList.processTasks();
     }
+
+    public static void main(String[] args) throws IOException {
+        new Duke("data/duke.txt").run();
+    }
 }
