@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents a <code>Storage</code> object that contains support for
+ * saving tasks/loading tasks from storage (ensures persistent storage
+ * of tasks)
+ */
+
 public class Storage {
     protected static String filePath;
     protected static final char TODO = 'T';
@@ -18,6 +24,11 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Helper for loadTaskList
+     * Loads tasks from duke.txt (file of saved tasks)
+     * Returns ArrayList of Task objects
+     */
     public static ArrayList<Task> loadFile() throws IOException {
         try {
             File f = new File(filePath);
@@ -58,7 +69,11 @@ public class Storage {
         }
         return null;
     }
-
+    /**
+     * Helper for processTasks
+     * Saves the list of tasks to the filepath of the Storage object
+     * @param listArray an ArrayList of tasks to write to file
+     */
     public static void saveFile(ArrayList<Task> listArray) throws IOException {
         try {
             FileWriter fw = new FileWriter("data/duke.txt");

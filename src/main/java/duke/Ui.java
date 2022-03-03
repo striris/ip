@@ -9,7 +9,6 @@ public class Ui {
                 + "Hello! I'm Duke.Duke\n"
                 + "What can I do for you?\n"
                 + "----------------------------------------------\n";
-        String bye = "Bye. Hope to see you again soon!\n";
         System.out.println(greeting);
     }
 

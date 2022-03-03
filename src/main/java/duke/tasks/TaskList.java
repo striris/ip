@@ -6,6 +6,10 @@ import duke.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a person's list of Tasks that they must complete.
+ * This class supports the modification of Tasks.
+ */
 public class TaskList {
     private static ArrayList<Task> tasks;
     private Storage storage;
