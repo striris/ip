@@ -24,5 +24,3 @@ public class Deadline extends Task {
         return "D " + super.saveTasks() + " | " + this.by + System.lineSeparator();
     }
 }
-
-//this.description = description.substring(0, description.lastIndexOf("/") + 4);
