@@ -80,7 +80,7 @@ public class TaskList {
                     findTask(keyWord);
                 }
                 else{
-                    System.out.println("I don't understand D:");
+                    System.out.println("I don't understand D: Please key in again!");
                 }
                 System.out.println("----------------------------------------------");
             }
