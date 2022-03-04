@@ -6,7 +6,7 @@ public class Ui {
 
     public static void greeting() {
         String greeting = "----------------------------------------------\n"
-                + "Hello! Duke here!!\n"
+                + "Hello! Duke here :)\n"
                 + "What can I do for you?\n"
                 + "----------------------------------------------\n";
         System.out.println(greeting);

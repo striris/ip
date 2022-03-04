@@ -80,7 +80,7 @@ public class TaskList {
                     findTask(keyWord);
                 }
                 else{
-                    System.out.println("I don't understand D: Please key in again!");
+                    System.out.println("I don't understand D: Please key in your command again!");
                 }
                 System.out.println("----------------------------------------------");
             }
@@ -93,15 +93,25 @@ public class TaskList {
     }
 
     private static void markTask(int taskIndex) {
-        System.out.println("Nice! I've marked this task as done:");
-        tasks.get(taskIndex-1).markAsDone();
-        System.out.println(tasks.get(taskIndex-1));
+        try {
+            tasks.get(taskIndex-1).markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(tasks.get(taskIndex-1));
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("This index is not within the range :( Try again!");
+        }
     }
 
     private static void unmarkTask(int taskIndex) {
-        System.out.println("OK, I've marked this task as not done yet:");
-        tasks.get(taskIndex-1).markAsNotDone();
-        System.out.println(tasks.get(taskIndex-1));
+        try {
+            tasks.get(taskIndex-1).markAsNotDone();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(tasks.get(taskIndex-1));
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("This index is not within the range :( Try again!");
+        }
     }
 
     private static void addTask(Task t) {
@@ -112,10 +122,17 @@ public class TaskList {
     }
 
     private static void deleteTask(int taskIndex) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(tasks.get(taskIndex -1));
-        tasks.remove(taskIndex -1);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        try{
+            Task deletedTask = tasks.get(taskIndex -1);
+            tasks.remove(taskIndex -1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(deletedTask);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("This index is not within the range :( Try again!");
+        }
+
     }
 
     private static void findTask(String keyWord) {
