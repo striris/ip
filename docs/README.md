@@ -18,10 +18,9 @@ application would benefit users who are able to type fast.
     - `delete 1` : Deletes the first task from list.
 ### Feature list:
 * Listing all tasks: `list`
-* Adding a new task:
-    * Todo task: `todo`
-    * Deadline task: `deadline`
-    * Event task: `event`
+* Adding a new Todo task: `todo`
+* Adding a new Deadline task: `deadline`
+* Adding a new Event task: `event`
 * Marking a task as done: `mark`
 * Marking a task as not done: `unmark`
 * Deleting a task: `delete`
@@ -36,16 +35,16 @@ Adds a Todo to the list of tasks. <br />
 Format: `todo DESCRIPTION` <br />
 Words in `UPPER_CASE` are the parameters. <br />
 Examples:
-* todo buy sunscreen
-* todo buy bubble tea
+* todo go to class
+* todo buy fruits
 
 ### Adding a Deadline
 Adds a Deadline to the list of tasks. <br />
 Format: `deadline DESCRIPTION /by DEADLINE` <br />
 Words in `UPPER_CASE` are the parameters. <br />
 Examples: <br />
-* deadline finish econometrics problem set /by Saturday
-* deadine return book /by Sunday 12:30PM
+* deadline finish problem set /by Saturday
+* deadine return book /by Sunday
 
 ### Adding an Event
 Adds an Event to the list of tasks. <br />
