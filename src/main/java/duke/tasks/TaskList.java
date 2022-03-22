@@ -85,8 +85,13 @@ public class TaskList {
                         break;
                     case "todo":
                         String toDoDescription = userInput.replace("todo","").trim();
-                        Task t = new ToDo(toDoDescription, false);
-                        addTask(t);
+                        if (toDoDescription.equals("")) {
+                            Ui.printDescriptionMissingMsg();
+                        }
+                        else {
+                            Task t = new ToDo(toDoDescription, false);
+                            addTask(t);
+                        }
                         break;
                     case "deadline":
                         String deadlineDescription = userInput.replace("deadline","").trim();
@@ -94,8 +99,13 @@ public class TaskList {
                         try {
                             by = parsedDeadlineInput[1].trim();
                             deadlineDescription = parsedDeadlineInput[0].trim();
-                            Task d = new Deadline(deadlineDescription, false, by);
-                            addTask(d);
+                            if (deadlineDescription.equals("")) {
+                                Ui.printDescriptionMissingMsg();
+                            }
+                            else {
+                                Task d = new Deadline(deadlineDescription, false, by);
+                                addTask(d);
+                            }
                         }
                         catch (ArrayIndexOutOfBoundsException e) {
                             Ui.printDeadlineErrorMsg();
@@ -107,8 +117,13 @@ public class TaskList {
                         try {
                             at = parsedEventInput[1].trim();
                             eventDescription = parsedEventInput[0].trim();
-                            Task e = new Event(eventDescription, false, at);
-                            addTask(e);
+                            if (eventDescription.equals("")) {
+                                Ui.printDescriptionMissingMsg();
+                            }
+                            else {
+                                Task e = new Event(eventDescription, false, at);
+                                addTask(e);
+                            }
                         }
                         catch (ArrayIndexOutOfBoundsException e) {
                             Ui.printEventErrorMsg();

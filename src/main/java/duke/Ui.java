@@ -49,4 +49,8 @@ public class Ui {
     public static void printNumberFormatMsg() {
         System.out.println("You didn't input a valid number, please try again!");
     }
+
+    public static void printDescriptionMissingMsg() {
+        System.out.println("Please input some description for this Task!");
+    }
 }
