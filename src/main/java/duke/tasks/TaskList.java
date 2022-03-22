@@ -20,6 +20,10 @@ public class TaskList {
         this.storage = storage;
     }
 
+    /**
+     * Load the Task List from the file.
+     * @throws IOException
+     */
     public void loadTaskList() throws IOException {
         try {
             tasks = storage.loadFile();
@@ -28,6 +32,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Process Tasks after parsing it and use the command accordingly.
+     * @throws IOException
+     */
     public void processTasks() throws IOException {
         String by = new String();
         String at = new String();

@@ -2,6 +2,9 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Create a UI for displaying message
+ */
 public class Ui {
 
     public static void greeting() {
