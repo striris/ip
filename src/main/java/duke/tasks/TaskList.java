@@ -36,10 +36,11 @@ public class TaskList {
                 String userInput = Ui.getInput();
                 String choice = userInput.split(" ")[0];
                 System.out.println("----------------------------------------------");
+                if (choice.equals("bye")) {
+                    Storage.saveFile(tasks);
+                    break;
+                }
                 switch (choice) {
-                    case "bye":
-                        Storage.saveFile(tasks);
-                        break;
                     case "list":
                         listTask();
                         break;
@@ -94,6 +95,7 @@ public class TaskList {
                         Ui.printCommandErrorMsg();
                         break;
                 }
+                Storage.saveFile(tasks);
                 System.out.println("----------------------------------------------");
             }
     }
