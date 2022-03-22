@@ -53,20 +53,35 @@ public class TaskList {
                         listTask();
                         break;
                     case "delete":
-                        int taskIndexDelete = Integer.parseInt(userInput.replace("delete","").trim());
-                        deleteTask(taskIndexDelete);
+                        try{
+                            int taskIndexDelete = Integer.parseInt(userInput.replace("delete","").trim());
+                            deleteTask(taskIndexDelete);
+                        }
+                        catch (NumberFormatException e) {
+                            Ui.printNumberFormatMsg();
+                        }
                         break;
                     case "find":
                         String keyWord = userInput.replace("find","").trim();
                         findTask(keyWord);
                         break;
                     case "mark":
-                        int taskIndexMark = Integer.parseInt(userInput.replace("mark","").trim());
-                        markTask(taskIndexMark);
+                        try {
+                            int taskIndexMark = Integer.parseInt(userInput.replace("mark","").trim());
+                            markTask(taskIndexMark);
+                        }
+                        catch (NumberFormatException e) {
+                            Ui.printNumberFormatMsg();
+                        }
                         break;
                     case "unmark":
-                        int taskIndexUnmark = Integer.parseInt(userInput.replace("unmark","").trim());
-                        unmarkTask(taskIndexUnmark);
+                        try {
+                            int taskIndexUnmark = Integer.parseInt(userInput.replace("unmark","").trim());
+                            unmarkTask(taskIndexUnmark);
+                        }
+                        catch (NumberFormatException e) {
+                            Ui.printNumberFormatMsg();
+                        }
                         break;
                     case "todo":
                         String toDoDescription = userInput.replace("todo","").trim();

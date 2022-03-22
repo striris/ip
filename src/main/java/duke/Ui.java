@@ -45,4 +45,8 @@ public class Ui {
     public static void printKeyWordMsg() {
         System.out.println("The keyword doesn't exist in task descriptions, try other keyword please :)");
     }
+
+    public static void printNumberFormatMsg() {
+        System.out.println("You didn't input a valid number, please try again!");
+    }
 }
