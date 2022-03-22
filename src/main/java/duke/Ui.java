@@ -22,4 +22,24 @@ public class Ui {
         String userInput = sc.nextLine();
         return userInput;
     }
+
+    public static void printDeadlineErrorMsg() {
+        System.out.println("Invalid input format. Please use /by for deadline.");
+    }
+
+    public static void printEventErrorMsg() {
+        System.out.println("Invalid input format. Please use /at for event.");
+    }
+
+    public static void printCommandErrorMsg() {
+        System.out.println("I don't understand D: Please key in your command again!");
+    }
+
+    public static void printIndexOutOfBoundMsg() {
+        System.out.println("This index is not within the range :( Try again!");
+    }
+
+    public static void printKeyWordMsg() {
+        System.out.println("The keyword doesn't exist in task descriptions, try other keyword please :)");
+    }
 }
