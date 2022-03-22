@@ -35,52 +35,64 @@ public class TaskList {
             while(true){
                 String userInput = Ui.getInput();
                 String choice = userInput.split(" ")[0];
-
                 System.out.println("----------------------------------------------");
-                if(userInput.equals("bye")) {
-                    Storage.saveFile(tasks);
-                    break;
-                }
-                else if(userInput.equals("list")) {
-                    listTask();
-                }
-                else if(choice.equals("mark")) {
-                    int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                    markTask(taskIndex);
-                }
-                else if(choice.equals("unmark")) {
-                    int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                    unmarkTask(taskIndex);
-                }
-                else if(choice.equals("todo")) {
-                    String toDoDescription = userInput.split("todo")[1].trim();
-                    Task t = new ToDo(toDoDescription, false);
-                    addTask(t);
-                }
-                else if(choice.equals("deadline")) {
-                    String[] input = userInput.split("/by");
-                    by = input[1].trim();
-                    String deadlineDescription = input[0].split("deadline")[1].trim();
-                    Task d = new Deadline(deadlineDescription, false, by);
-                    addTask(d);
-                }
-                else if(choice.equals("event")) {
-                    String[] input = userInput.split("/at");
-                    at = input[1].trim();
-                    String eventDescription = input[0].split("event")[1].trim();
-                    Task e = new Event(eventDescription, false, at);
-                    addTask(e);
-                }
-                else if(choice.equals("delete")) {
-                    int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
-                    deleteTask(taskIndex);
-                }
-                else if(choice.equals("find")) {
-                    String keyWord = userInput.split(" ")[1];
-                    findTask(keyWord);
-                }
-                else{
-                    System.out.println("I don't understand D: Please key in your command again!");
+                switch (choice) {
+                    case "bye":
+                        Storage.saveFile(tasks);
+                        break;
+                    case "list":
+                        listTask();
+                        break;
+                    case "delete":
+                        int taskIndexDelete = Integer.parseInt(userInput.replace("delete","").trim());
+                        deleteTask(taskIndexDelete);
+                        break;
+                    case "find":
+                        String keyWord = userInput.replace("find","").trim();
+                        findTask(keyWord);
+                        break;
+                    case "mark":
+                        int taskIndexMark = Integer.parseInt(userInput.replace("mark","").trim());
+                        markTask(taskIndexMark);
+                        break;
+                    case "unmark":
+                        int taskIndexUnmark = Integer.parseInt(userInput.replace("unmark","").trim());
+                        unmarkTask(taskIndexUnmark);
+                        break;
+                    case "todo":
+                        String toDoDescription = userInput.replace("todo","").trim();
+                        Task t = new ToDo(toDoDescription, false);
+                        addTask(t);
+                        break;
+                    case "deadline":
+                        String deadlineDescription = userInput.replace("deadline","").trim();
+                        String[] parsedDeadlineInput = deadlineDescription.split("/by");
+                        try {
+                            by = parsedDeadlineInput[1].trim();
+                            deadlineDescription = parsedDeadlineInput[0].trim();
+                            Task d = new Deadline(deadlineDescription, false, by);
+                            addTask(d);
+                        }
+                        catch (ArrayIndexOutOfBoundsException e) {
+                            Ui.printDeadlineErrorMsg();
+                        }
+                        break;
+                    case "event":
+                        String eventDescription = userInput.replace("event","").trim();
+                        String[] parsedEventInput = eventDescription.split("/at");
+                        try {
+                            at = parsedEventInput[1].trim();
+                            eventDescription = parsedEventInput[0].trim();
+                            Task e = new Event(eventDescription, false, at);
+                            addTask(e);
+                        }
+                        catch (ArrayIndexOutOfBoundsException e) {
+                            Ui.printEventErrorMsg();
+                        }
+                        break;
+                    default:
+                        Ui.printCommandErrorMsg();
+                        break;
                 }
                 System.out.println("----------------------------------------------");
             }
@@ -99,7 +111,7 @@ public class TaskList {
             System.out.println(tasks.get(taskIndex-1));
         }
         catch (IndexOutOfBoundsException e) {
-            System.out.println("This index is not within the range :( Try again!");
+            Ui.printIndexOutOfBoundMsg();
         }
     }
 
@@ -110,7 +122,7 @@ public class TaskList {
             System.out.println(tasks.get(taskIndex-1));
         }
         catch (IndexOutOfBoundsException e) {
-            System.out.println("This index is not within the range :( Try again!");
+            Ui.printIndexOutOfBoundMsg();
         }
     }
 
@@ -130,22 +142,25 @@ public class TaskList {
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         }
         catch (IndexOutOfBoundsException e) {
-            System.out.println("This index is not within the range :( Try again!");
+            Ui.printIndexOutOfBoundMsg();
         }
 
     }
 
     private static void findTask(String keyWord) {
-        System.out.println("Here are the matching tasks in your list:");
+
         int i = 1;
         for(Task t: tasks) {
             if(t.description.contains(keyWord)){
+                if(i == 1) {
+                    System.out.println("Here are the matching tasks in your list:");
+                }
                 System.out.println(i +"."+ t);
                 i++;
             }
         }
         if(i == 1) {
-            System.out.println("The keyword doesn't exist in task descriptions, try other keyword please :)");
+            Ui.printKeyWordMsg();
         }
     }
 }
